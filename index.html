@@ -8,7 +8,7 @@
   <meta property="og:title" content="CULTUREON — O teu switch criativo" />
   <meta property="og:description" content="Produção de vídeo · Identidade visual & branding · Algarve" />
   <meta name="theme-color" content="#0A0A0A" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230A0A0A'/%3E%3Cpath d='M50 12 C54 38 62 46 88 50 C62 54 54 62 50 88 C46 62 38 54 12 50 C38 46 46 38 50 12Z' fill='%23D9FF47'/%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230A0A0A'/%3E%3Ctext x='50' y='98' font-family='Inter,Arial,sans-serif' font-size='120' text-anchor='middle' fill='%23D9FF47'%3E*%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
@@ -74,11 +74,12 @@
       position: relative; overflow: hidden;
     }
     .spark {
-      width: 64px; height: 64px; display: block; margin-bottom: 22px;
-      animation: spin 14s linear infinite;
+      display: block; width: 72px; height: 72px; margin-bottom: 14px;
+      font-family: "Inter", sans-serif; font-weight: 400;
+      font-size: 132px; line-height: 132px; text-align: center;
+      color: var(--accent);
     }
-    .spark path { fill: var(--accent); }
-    body.off .spark path { fill: var(--fg); }
+    body.off .spark { color: var(--fg); }
     @keyframes spin { to { transform: rotate(360deg); } }
     @media (prefers-reduced-motion: reduce) { .spark { animation: none; } }
 
@@ -113,8 +114,8 @@
     }
     .links .idx { font-size: 11px; font-weight: 600; color: var(--muted); letter-spacing: .08em; transition: color .15s; }
     .links .label {
-      font-family: "Syne", sans-serif; font-weight: 700; font-size: 19px;
-      text-transform: uppercase; letter-spacing: .01em; line-height: 1.1;
+      font-family: "Inter", sans-serif; font-weight: 600; font-size: 18px;
+      text-transform: uppercase; letter-spacing: .02em; line-height: 1.1;
     }
     .links .sub { display: block; font-family: "Inter", sans-serif; font-weight: 400; font-size: 13px; text-transform: none; color: var(--muted); margin-top: 3px; letter-spacing: 0; transition: color .15s; }
     .links .arrow { font-size: 22px; line-height: 1; transition: transform .15s ease; }
@@ -150,15 +151,13 @@
     </div>
 
     <header class="hero">
-      <svg class="spark" viewBox="0 0 100 100" aria-hidden="true">
-        <path d="M50 4 C55 36 64 45 96 50 C64 55 55 64 50 96 C45 64 36 55 4 50 C36 45 45 36 50 4Z" />
-      </svg>
+      <span class="spark" aria-hidden="true">*</span>
       <h1>Culture<br /><span class="on">On</span></h1>
       <p class="tagline">O teu switch criativo ⚡</p>
       <div class="meta">
         <span>Produção de vídeo</span>
         <span>Identidade visual &amp; branding</span>
-        <span>Algarve</span>
+        <span>Estratégia</span>
       </div>
     </header>
 
@@ -183,7 +182,6 @@
       { label: "Website",          sub: "cultureon.pt",                      url: "https://cultureon.pt" },
       { label: "Instagram",        sub: "@cultureon.pt",                     url: "https://www.instagram.com/cultureon.pt/" },
       { label: "WhatsApp",         sub: "966 180 200",                       url: "https://wa.me/351966180200" },
-      { label: "Ligar",            sub: "+351 966 180 200",                  url: "tel:+351966180200" },
       { label: "Portfólio",        sub: "Trabalho, não promessas",           url: "" },
       { label: "LinkedIn",         sub: "CultureOn",                         url: "" },
     ];

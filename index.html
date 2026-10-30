@@ -356,7 +356,8 @@
     const btn = document.getElementById("switch");
     const state = document.getElementById("state");
     let clicks = 0;
-    const CLICKS_TO_ON = 5;
+    const CLICKS_TO_ON = 3;
+    const NOPE = ["Ainda não.", "VAAAI!"];
     function setMode(off) {
       document.body.classList.toggle("off", off);
       btn.setAttribute("aria-pressed", String(!off));
@@ -380,9 +381,9 @@
       clicks++;
       big.classList.add("flip");
       if (clicks >= CLICKS_TO_ON) {
-        // 5.º clique: acende e volta à página principal
+        // último clique: acende e volta à página principal
         big.classList.add("final");
-        msg.textContent = "Agora sim.";
+        msg.textContent = "É AGORA!";
         sub.textContent = "";
         setTimeout(() => {
           setMode(false);
@@ -390,8 +391,8 @@
           busy = false;
         }, 650);
       } else {
-        // cliques 1–4: o interruptor salta de volta
-        msg.textContent = "Ainda não.";
+        // cliques anteriores: o interruptor salta de volta
+        msg.textContent = NOPE[clicks - 1] || NOPE[NOPE.length - 1];
         sub.textContent = "";
         msg.classList.remove("nope"); void msg.offsetWidth; msg.classList.add("nope");
         setTimeout(() => { big.classList.remove("flip"); busy = false; }, 260);

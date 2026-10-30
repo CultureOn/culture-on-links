@@ -24,4 +24,4 @@ Para um domínio próprio (ex.: `links.cultureon.pt`), adiciona-o em Settings �
 
 - Títulos: Syne · Corpo: Inter
 - Cores: preto `#0A0A0A`, branco `#F5F5F2`, acento `#D9FF47`
-- Easter egg: o interruptor ON/OFF no topo passa a página para o modo claro e troca os links por um interruptor 3D a preto e branco. Ao carregar nele, a metade de baixo acende a verde e a página volta a ligar. A página abre sempre em ON.
+- Easter egg: o interruptor ON/OFF no topo passa a página para o modo claro e troca os links por um interruptor em cápsula com uma linha de luz a escapar. Ao 1.º e 2.º clique a luz pisca ("Ainda não.", "VAAAI!"); ao 3.º o painel escurece, a cápsula acende ("É AGORA!") e a página volta a ON. A página abre sempre em ON.

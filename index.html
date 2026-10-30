@@ -163,20 +163,20 @@
     @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
     .rocker {
       background: none; border: 0; padding: 0; cursor: pointer;
-      width: min(100%, 300px); display: block;
+      width: min(100%, 270px); display: block;
       -webkit-tap-highlight-color: transparent;
       transition: transform .12s ease;
     }
     .rocker:active { transform: translateY(2px) scale(.99); }
     .rocker:focus-visible { outline: 2px solid var(--fg); outline-offset: 6px; }
     .rocker svg { width: 100%; height: auto; display: block; overflow: visible; }
-    .rocker .ink   { stroke: #0A0A0A; stroke-width: 3; stroke-linejoin: round; }
+    .rocker .ink   { stroke: #0A0A0A; stroke-width: 9; stroke-linejoin: round; }
     .rocker .face  { fill: #FFFFFF; }
     .rocker .top   { fill: #CFCFCB; }
     .rocker .side  { fill: #0A0A0A; }
     .rocker .well  { fill: #E4E4E0; }
     .rocker .cap   { fill: #A9A9A4; }
-    .rocker .lbl   { font-family: "Syne", sans-serif; font-weight: 700; font-size: 24px; letter-spacing: .04em; fill: #0A0A0A; }
+    .rocker .lbl   { font-family: "Syne", sans-serif; font-weight: 700; font-size: 82px; letter-spacing: .04em; fill: #0A0A0A; }
     .rocker .is-on { opacity: 0; }
     .rocker.flip .is-off { opacity: 0; }
     .rocker.flip .is-on  { opacity: 1; }
@@ -230,30 +230,28 @@
 
     <div class="off-panel" id="off-panel">
       <button type="button" class="rocker" id="turn-on" tabindex="-1" aria-label="Ligar a página">
-        <svg viewBox="0 0 310 350" aria-hidden="true">
-          <!-- sombra -->
-          <polygon class="shadow" points="40,330 230,330 280,295 90,295" />
-          <!-- caixa -->
-          <polygon class="top ink"  points="40,70 85,36 275,36 230,70" />
-          <polygon class="side ink" points="230,70 275,36 275,286 230,320" />
-          <rect    class="face ink" x="40" y="70" width="190" height="250" />
-          <text class="lbl" x="135" y="112" text-anchor="middle">OFF</text>
-          <text class="lbl" x="135" y="315" text-anchor="middle">ON</text>
-          <!-- poço do interruptor -->
-          <rect class="well ink" x="92" y="128" width="86" height="140" />
+        <svg viewBox="215 235 700 880" aria-hidden="true">
+          <!-- placa -->
+          <rect class="face ink" x="230" y="250" width="670" height="850" />
+          <text class="lbl" x="565" y="365" text-anchor="middle">OFF</text>
+          <text class="lbl" x="565" y="1040" text-anchor="middle">ON</text>
 
           <!-- estado OFF: metade de cima saliente -->
           <g class="is-off">
-            <rect    class="face ink" x="92" y="198" width="86" height="70" />
-            <polygon class="cap ink"  points="92,128 178,128 152,148 66,148" />
-            <polygon class="face ink" points="66,148 152,148 178,198 92,198" />
-            <polygon class="top ink"  points="152,148 178,128 178,198" />
+            <polygon class="face ink" points="700,467 728,467 728,905 712,915 712,700" />
+            <rect    class="face ink" x="448" y="700" width="264" height="215" />
+            <polygon class="face ink" points="610,500 660,410 722,522 712,700" />
+            <polygon class="face ink" points="350,500 398,410 660,410 610,500" />
+            <polygon class="face ink" points="350,500 610,500 712,700 448,700" />
           </g>
+
           <!-- estado ON: metade de baixo saliente -->
           <g class="is-on">
-            <rect    class="face ink" x="92" y="128" width="86" height="70" />
-            <polygon class="side ink" points="178,198 178,268 152,288" />
-            <polygon class="face lit ink" points="92,198 178,198 152,288 66,288" />
+            <polygon class="face ink" points="712,463 728,463 728,910 700,910 712,668" />
+            <rect    class="face ink" x="448" y="463" width="264" height="205" />
+            <polygon class="face ink" points="712,668 728,700 728,840 660,940 612,868" />
+            <polygon class="face ink" points="355,868 612,868 660,940 398,940" />
+            <polygon class="face lit ink" points="448,668 712,668 612,868 355,868" />
           </g>
         </svg>
       </button>

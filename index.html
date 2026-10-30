@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CULTUREON — O teu switch criativo</title>
+  <meta name="description" content="CultureOn — agência criativa no Algarve. Produção de vídeo, identidade visual e branding." />
+  <meta property="og:title" content="CULTUREON — O teu switch criativo" />
+  <meta property="og:description" content="Produção de vídeo · Identidade visual & branding · Algarve" />
+  <meta name="theme-color" content="#0A0A0A" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230A0A0A'/%3E%3Cpath d='M50 12 C54 38 62 46 88 50 C62 54 54 62 50 88 C46 62 38 54 12 50 C38 46 46 38 50 12Z' fill='%23D9FF47'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0A0A0A;
+      --fg: #F5F5F2;
+      --muted: #8A8A85;
+      --line: #F5F5F2;
+      --accent: #D9FF47;
+      --accent-ink: #0A0A0A;
+    }
+    body.off {
+      --bg: #F5F5F2;
+      --fg: #0A0A0A;
+      --muted: #6B6B66;
+      --line: #0A0A0A;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { min-height: 100%; }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: "Inter", system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      transition: background .25s ease, color .25s ease;
+      display: flex;
+      justify-content: center;
+      padding: 28px 18px 40px;
+    }
+    main { width: 100%; max-width: 480px; }
+
+    /* ---------- top bar ---------- */
+    .bar {
+      display: flex; align-items: center; justify-content: space-between;
+      border: 2px solid var(--line);
+      padding: 10px 12px;
+      font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+    }
+    .switch {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: none; border: 0; color: inherit; cursor: pointer;
+      font: inherit; letter-spacing: inherit; text-transform: inherit;
+    }
+    .track {
+      width: 38px; height: 20px; border: 2px solid var(--line);
+      position: relative; transition: background .2s;
+    }
+    .knob {
+      position: absolute; top: 2px; left: 2px; width: 12px; height: 12px;
+      background: var(--line); transition: transform .2s ease;
+    }
+    body:not(.off) .track { background: var(--accent); border-color: var(--accent); }
+    body:not(.off) .knob { transform: translateX(18px); background: var(--accent-ink); }
+    .switch:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+    /* ---------- hero ---------- */
+    .hero {
+      border: 2px solid var(--line); border-top: 0;
+      padding: 36px 20px 28px;
+      position: relative; overflow: hidden;
+    }
+    .spark {
+      width: 64px; height: 64px; display: block; margin-bottom: 22px;
+      animation: spin 14s linear infinite;
+    }
+    .spark path { fill: var(--accent); }
+    body.off .spark path { fill: var(--fg); }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .spark { animation: none; } }
+
+    h1 {
+      font-family: "Syne", sans-serif; font-weight: 800;
+      font-size: clamp(44px, 14vw, 68px); line-height: .9; letter-spacing: -.02em;
+      text-transform: uppercase;
+    }
+    h1 .on { color: var(--accent); }
+    body.off h1 .on { color: var(--fg); -webkit-text-stroke: 0; text-decoration: line-through; text-decoration-thickness: 4px; }
+    .tagline {
+      margin-top: 16px;
+      font-family: "Syne", sans-serif; font-weight: 700;
+      font-size: 18px; text-transform: uppercase; letter-spacing: .01em;
+    }
+    .meta {
+      margin-top: 18px; display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .meta span {
+      border: 1.5px solid var(--line); padding: 4px 8px;
+      font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+    }
+
+    /* ---------- links ---------- */
+    .links { list-style: none; }
+    .links a {
+      display: grid; grid-template-columns: 34px 1fr auto; align-items: center; gap: 12px;
+      border: 2px solid var(--line); border-top: 0;
+      padding: 18px 16px;
+      color: inherit; text-decoration: none;
+      transition: background .15s ease, color .15s ease;
+    }
+    .links .idx { font-size: 11px; font-weight: 600; color: var(--muted); letter-spacing: .08em; transition: color .15s; }
+    .links .label {
+      font-family: "Syne", sans-serif; font-weight: 700; font-size: 19px;
+      text-transform: uppercase; letter-spacing: .01em; line-height: 1.1;
+    }
+    .links .sub { display: block; font-family: "Inter", sans-serif; font-weight: 400; font-size: 13px; text-transform: none; color: var(--muted); margin-top: 3px; letter-spacing: 0; transition: color .15s; }
+    .links .arrow { font-size: 22px; line-height: 1; transition: transform .15s ease; }
+    .links a:hover, .links a:focus-visible {
+      background: var(--accent); color: var(--accent-ink); outline: none;
+    }
+    .links a:hover .idx, .links a:hover .sub,
+    .links a:focus-visible .idx, .links a:focus-visible .sub { color: var(--accent-ink); }
+    .links a:hover .arrow, .links a:focus-visible .arrow { transform: translateX(4px) rotate(-45deg); }
+
+    .links li.featured a { background: var(--fg); color: var(--bg); }
+    .links li.featured .idx, .links li.featured .sub { color: var(--bg); opacity: .7; }
+    .links li.featured a:hover, .links li.featured a:focus-visible { background: var(--accent); color: var(--accent-ink); }
+    .links li.featured a:hover .idx, .links li.featured a:hover .sub { opacity: 1; }
+
+    /* ---------- footer ---------- */
+    footer {
+      border: 2px solid var(--line); border-top: 0;
+      padding: 14px 16px;
+      display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+      font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="bar">
+      <span>CO™ / Links</span>
+      <button class="switch" id="switch" type="button" aria-pressed="true" aria-label="Alternar modo claro/escuro">
+        <span id="state">On</span>
+        <span class="track"><span class="knob"></span></span>
+      </button>
+    </div>
+
+    <header class="hero">
+      <svg class="spark" viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M50 4 C55 36 64 45 96 50 C64 55 55 64 50 96 C45 64 36 55 4 50 C36 45 45 36 50 4Z" />
+      </svg>
+      <h1>Culture<br /><span class="on">On</span></h1>
+      <p class="tagline">O teu switch criativo ⚡</p>
+      <div class="meta">
+        <span>Produção de vídeo</span>
+        <span>Identidade visual &amp; branding</span>
+        <span>Algarve</span>
+      </div>
+    </header>
+
+    <ul class="links" id="links"></ul>
+
+    <footer>
+      <span>© <span id="year"></span> CultureOn</span>
+      <span>Portimão — PT</span>
+    </footer>
+  </main>
+
+  <script>
+    /*
+     * ============================================================
+     *  LINKS — edita só esta lista.
+     *  - Links com url vazio ("") não aparecem na página.
+     *  - featured: true destaca o botão (fundo invertido).
+     * ============================================================
+     */
+    const LINKS = [
+      { label: "Pedir orçamento",  sub: "Conta-nos o que precisas",          url: "",                         featured: true },
+      { label: "Website",          sub: "cultureon.pt",                      url: "https://cultureon.pt" },
+      { label: "Portfólio",        sub: "Trabalho, não promessas",           url: "" },
+      { label: "Instagram",        sub: "Bastidores, projetos e switches",   url: "" },
+      { label: "WhatsApp",         sub: "Fala diretamente com a equipa",     url: "" },
+      { label: "LinkedIn",         sub: "CultureOn",                         url: "" },
+    ];
+
+    const list = document.getElementById("links");
+    LINKS.filter(l => l.url && l.url.trim()).forEach((l, i) => {
+      const li = document.createElement("li");
+      if (l.featured) li.className = "featured";
+      const a = document.createElement("a");
+      a.href = l.url;
+      if (/^https?:/.test(l.url)) { a.target = "_blank"; a.rel = "noopener"; }
+      const idx = document.createElement("span");
+      idx.className = "idx";
+      idx.textContent = String(i + 1).padStart(2, "0");
+      const label = document.createElement("span");
+      label.className = "label";
+      label.textContent = l.label;
+      if (l.sub) {
+        const sub = document.createElement("span");
+        sub.className = "sub";
+        sub.textContent = l.sub;
+        label.appendChild(sub);
+      }
+      const arrow = document.createElement("span");
+      arrow.className = "arrow";
+      arrow.setAttribute("aria-hidden", "true");
+      arrow.textContent = "→";
+      a.append(idx, label, arrow);
+      li.appendChild(a);
+      list.appendChild(li);
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Switch ON / OFF (modo escuro / claro)
+    const btn = document.getElementById("switch");
+    const state = document.getElementById("state");
+    function setMode(off) {
+      document.body.classList.toggle("off", off);
+      btn.setAttribute("aria-pressed", String(!off));
+      state.textContent = off ? "Off" : "On";
+      document.querySelector('meta[name="theme-color"]').content = off ? "#F5F5F2" : "#0A0A0A";
+      try { localStorage.setItem("co-mode", off ? "off" : "on"); } catch (e) {}
+    }
+    let saved = null;
+    try { saved = localStorage.getItem("co-mode"); } catch (e) {}
+    setMode(saved === "off");
+    btn.addEventListener("click", () => setMode(!document.body.classList.contains("off")));
+  </script>
+</body>
+</html>

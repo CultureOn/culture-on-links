@@ -24,4 +24,4 @@ Para um domínio próprio (ex.: `links.cultureon.pt`), adiciona-o em Settings �
 
 - Títulos: Syne · Corpo: Inter
 - Cores: preto `#0A0A0A`, branco `#F5F5F2`, acento `#D9FF47`
-- O interruptor ON/OFF no topo alterna entre o modo escuro e o modo claro (e a escolha fica guardada no browser).
+- Easter egg: o interruptor ON/OFF no topo passa a página para o modo claro e desfoca os links. Um botão "Desligado. Dá o switch" volta a ligá-la. A página abre sempre em ON.

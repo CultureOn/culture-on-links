@@ -89,12 +89,28 @@
     @media (prefers-reduced-motion: reduce) { .spark { animation: none; } }
 
     h1 {
+      margin: 0 -20px;
       font-family: "Syne", sans-serif; font-weight: 800;
-      font-size: clamp(44px, 14vw, 68px); line-height: .9; letter-spacing: -.02em;
+      font-size: clamp(44px, 14vw, 68px); line-height: .95; letter-spacing: -.02em;
       text-transform: uppercase;
     }
+    .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .marquee { overflow: hidden; white-space: nowrap; }
+    .marquee + .marquee { margin-top: .04em; }
+    .marquee .run { display: inline-flex; width: max-content; will-change: transform; }
+    .marquee .item { display: inline-flex; align-items: center; padding-right: .35em; }
+    .marquee .sep {
+      font-family: "Inter", sans-serif; font-weight: 300; color: var(--accent);
+      margin-left: .35em; font-size: .9em; line-height: 1; transform: translateY(.08em);
+    }
+    .marquee.ltr .run { animation: to-right 22s linear infinite; }
+    .marquee.rtl .run { animation: to-left 22s linear infinite; }
+    @keyframes to-left  { from { transform: translateX(0); }    to { transform: translateX(-50%); } }
+    @keyframes to-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+    @media (prefers-reduced-motion: reduce) { .marquee .run { animation: none; } }
     h1 .on { color: var(--accent); }
-    body.off h1 .on { color: var(--fg); -webkit-text-stroke: 0; text-decoration: line-through; text-decoration-thickness: 4px; }
+    body.off h1 .on { color: var(--fg); text-decoration: line-through; text-decoration-thickness: 4px; }
+    body.off .marquee .sep { color: var(--fg); }
     .tagline {
       margin-top: 16px;
       font-family: "Syne", sans-serif; font-weight: 700;
@@ -157,7 +173,11 @@
 
     <header class="hero">
       <div class="spark-wrap" aria-hidden="true"><span class="spark" id="spark">*</span></div>
-      <h1>Culture<br /><span class="on">On</span></h1>
+      <h1>
+        <span class="sr">CultureOn</span>
+        <div class="marquee ltr" aria-hidden="true"><div class="run" data-items="6"></div></div>
+        <div class="marquee rtl" aria-hidden="true"><div class="run" data-items="6"></div></div>
+      </h1>
       <p class="tagline">O teu switch criativo<svg class="bolt" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 1 3 14h7.5L9 23 21 9.5h-7.6L13.5 1Z"/></svg></p>
       <div class="meta">
         <span>Produção de vídeo</span>
@@ -217,6 +237,17 @@
       a.append(idx, label, arrow);
       li.appendChild(a);
       list.appendChild(li);
+    });
+
+    // Rodapé animado do título: "CULTURE ON *" repetido (duas metades iguais para o loop)
+    document.querySelectorAll(".marquee .run").forEach(run => {
+      const n = +run.dataset.items;
+      for (let i = 0; i < n * 2; i++) {
+        const item = document.createElement("span");
+        item.className = "item";
+        item.innerHTML = 'Culture&nbsp;<span class="on">On</span><span class="sep">*</span>';
+        run.appendChild(item);
+      }
     });
 
     document.getElementById("year").textContent = new Date().getFullYear();

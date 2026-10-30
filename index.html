@@ -140,11 +140,36 @@
       font-size: 18px; text-transform: uppercase; letter-spacing: .01em;
     }
     .meta {
-      margin-top: 18px; display: flex; flex-wrap: wrap; gap: 6px;
+      margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px 7px;
     }
+    /* etiquetas = mini-cápsulas com luz por trás (mesmo estilo dos interruptores) */
     .meta span {
-      border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px;
+      --glow: 217, 255, 71;
+      position: relative;
+      border-radius: 999px; padding: 4px 10px;
       font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+      transition: background .35s ease, border-color .35s ease, box-shadow .35s ease, color .25s ease;
+    }
+    /* ON: acesas */
+    body:not(.off) .meta span {
+      background: linear-gradient(180deg, #161616 0%, #121212 50%, #0E0E0E 50%, #141414 100%);
+      border: 1px solid rgba(var(--glow), .95);
+      box-shadow:
+        0 0 0 .5px rgba(var(--glow), .6),
+        0 0 6px 1px rgba(var(--glow), .55),
+        0 0 18px 3px rgba(var(--glow), .22);
+    }
+    /* OFF: apagadas, com a linha de luz a escapar por baixo */
+    body.off .meta span {
+      background: linear-gradient(180deg, #FCFCFA 0%, #F1F1EE 50%, #E2E2DE 50%, #ECECE8 100%);
+      border: 1px solid #0A0A0A; color: #0A0A0A;
+      box-shadow: -6px 6px 10px -7px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.9);
+    }
+    body.off .meta span::after {
+      content: ""; position: absolute; inset: -1px; border-radius: 999px;
+      border: 1.5px solid transparent; border-bottom-color: rgb(var(--glow));
+      filter: blur(.5px) drop-shadow(0 2px 3px rgba(var(--glow), .9));
+      pointer-events: none;
     }
 
     /* ---------- links ---------- */

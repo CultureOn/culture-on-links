@@ -176,16 +176,20 @@
     .rocker .side  { fill: #0A0A0A; }
     .rocker .well  { fill: #E4E4E0; }
     .rocker .cap   { fill: #A9A9A4; }
-    .rocker .lbl   { font-family: "Inter", sans-serif; font-weight: 600; font-size: 20px; letter-spacing: .12em; fill: #0A0A0A; }
+    .rocker .lbl   { font-family: "Syne", sans-serif; font-weight: 700; font-size: 24px; letter-spacing: .04em; fill: #0A0A0A; }
     .rocker .is-on { opacity: 0; }
     .rocker.flip .is-off { opacity: 0; }
     .rocker.flip .is-on  { opacity: 1; }
-    .rocker.flip .lit { fill: var(--accent); }
+    .rocker.final .lit { fill: var(--accent); }
     .rocker .shadow { fill: #0A0A0A; opacity: .12; }
     .off-hint {
       margin-top: 22px; text-align: center;
       font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
     }
+    .off-hint #off-msg { display: inline-block; font-family: "Syne", sans-serif; font-weight: 700; font-size: 18px; letter-spacing: .04em; }
+    .off-hint #off-msg.nope { animation: nope .4s ease; }
+    @keyframes nope { 20% { transform: translateX(-8px); } 40% { transform: translateX(7px); } 60% { transform: translateX(-5px); } 80% { transform: translateX(3px); } }
+    .off-hint small { min-height: 1.5em; }
     .off-hint small { display: block; margin-top: 4px; font-weight: 400; letter-spacing: .02em; text-transform: none; font-size: 13px; color: var(--muted); }
 
     /* ---------- footer ---------- */
@@ -233,8 +237,8 @@
           <polygon class="top ink"  points="40,70 85,36 275,36 230,70" />
           <polygon class="side ink" points="230,70 275,36 275,286 230,320" />
           <rect    class="face ink" x="40" y="70" width="190" height="250" />
-          <text class="lbl" x="135" y="112" text-anchor="middle">ON</text>
-          <text class="lbl" x="135" y="310" text-anchor="middle">OFF</text>
+          <text class="lbl" x="135" y="112" text-anchor="middle">OFF</text>
+          <text class="lbl" x="135" y="315" text-anchor="middle">ON</text>
           <!-- poço do interruptor -->
           <rect class="well ink" x="92" y="128" width="86" height="140" />
 
@@ -253,7 +257,7 @@
           </g>
         </svg>
       </button>
-      <p class="off-hint">Desligado.<small>Carrega no interruptor para ligar a CultureOn.</small></p>
+      <p class="off-hint" aria-live="polite"><span id="off-msg">Desligado.</span><small id="off-sub">Carrega no interruptor para ligar a CultureOn.</small></p>
     </div>
 
     <footer>
@@ -351,22 +355,47 @@
     // Switch ON / OFF (modo escuro / claro)
     const btn = document.getElementById("switch");
     const state = document.getElementById("state");
+    let clicks = 0;
+    const CLICKS_TO_ON = 5;
     function setMode(off) {
       document.body.classList.toggle("off", off);
       btn.setAttribute("aria-pressed", String(!off));
       state.textContent = off ? "Off" : "On";
       document.getElementById("turn-on").tabIndex = off ? 0 : -1;
+      if (off) { // reinicia o easter egg sempre que se desliga
+        clicks = 0;
+        document.getElementById("off-msg").textContent = "Desligado.";
+        document.getElementById("off-sub").textContent = "Carrega no interruptor para ligar a CultureOn.";
+      }
       document.querySelector('meta[name="theme-color"]').content = off ? "#F5F5F2" : "#0A0A0A";
     }
     setMode(false); // começa sempre ligado — o OFF é o easter egg
     const big = document.getElementById("turn-on");
+    const msg = document.getElementById("off-msg");
+    const sub = document.getElementById("off-sub");
+    let busy = false;
     big.addEventListener("click", () => {
-      if (big.classList.contains("flip")) return;
+      if (busy) return;
+      busy = true;
+      clicks++;
       big.classList.add("flip");
-      setTimeout(() => {
-        setMode(false);
-        big.classList.remove("flip");
-      }, 450);
+      if (clicks >= CLICKS_TO_ON) {
+        // 5.º clique: acende e volta à página principal
+        big.classList.add("final");
+        msg.textContent = "Agora sim.";
+        sub.textContent = "";
+        setTimeout(() => {
+          setMode(false);
+          big.classList.remove("flip", "final");
+          busy = false;
+        }, 650);
+      } else {
+        // cliques 1–4: o interruptor salta de volta
+        msg.textContent = "Ainda não.";
+        sub.textContent = "";
+        msg.classList.remove("nope"); void msg.offsetWidth; msg.classList.add("nope");
+        setTimeout(() => { big.classList.remove("flip"); busy = false; }, 260);
+      }
     });
     btn.addEventListener("click", () => setMode(!document.body.classList.contains("off")));
   </script>

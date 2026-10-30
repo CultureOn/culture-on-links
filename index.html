@@ -152,36 +152,41 @@
     .links li.featured a:hover .idx, .links li.featured a:hover .sub { opacity: 1; }
 
     /* ---------- easter egg: modo OFF ---------- */
-    .links-wrap { position: relative; overflow: hidden; }
-    .links { transition: filter .35s ease, opacity .35s ease; }
-    body.off .links { filter: blur(6px); opacity: .55; pointer-events: none; user-select: none; }
-    /* moldura nítida por cima do desfoque (laterais + linha de baixo) */
-    .links-wrap::after {
-      content: ""; position: absolute; inset: 0; pointer-events: none;
+    .off-panel { display: none; }
+    body.off .links { display: none; }
+    body.off .off-panel {
+      display: flex; flex-direction: column; align-items: center;
       border: 2px solid var(--line); border-top: 0;
-      opacity: 0; transition: opacity .35s ease;
+      padding: 30px 20px 26px;
+      animation: fade-in .35s ease;
     }
-    body.off .links-wrap::after { opacity: 1; }
-    .off-note {
-      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-      opacity: 0; pointer-events: none; transition: opacity .35s ease;
+    @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+    .rocker {
+      background: none; border: 0; padding: 0; cursor: pointer;
+      width: min(100%, 300px); display: block;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform .12s ease;
     }
-    body.off .off-note { opacity: 1; pointer-events: auto; }
-    /* cópia grande do switch */
-    .big-switch {
-      display: inline-flex; align-items: center; gap: 18px;
-      background: var(--bg); border: 2px solid var(--line); color: var(--fg);
-      padding: 18px 22px; cursor: pointer;
-      font-family: "Inter", sans-serif; font-weight: 600; font-size: 28px;
-      letter-spacing: .12em; text-transform: uppercase; line-height: 1;
+    .rocker:active { transform: translateY(2px) scale(.99); }
+    .rocker:focus-visible { outline: 2px solid var(--fg); outline-offset: 6px; }
+    .rocker svg { width: 100%; height: auto; display: block; overflow: visible; }
+    .rocker .ink   { stroke: #0A0A0A; stroke-width: 3; stroke-linejoin: round; }
+    .rocker .face  { fill: #FFFFFF; }
+    .rocker .top   { fill: #CFCFCB; }
+    .rocker .side  { fill: #0A0A0A; }
+    .rocker .well  { fill: #E4E4E0; }
+    .rocker .cap   { fill: #A9A9A4; }
+    .rocker .lbl   { font-family: "Inter", sans-serif; font-weight: 600; font-size: 20px; letter-spacing: .12em; fill: #0A0A0A; }
+    .rocker .is-on { opacity: 0; }
+    .rocker.flip .is-off { opacity: 0; }
+    .rocker.flip .is-on  { opacity: 1; }
+    .rocker.flip .lit { fill: var(--accent); }
+    .rocker .shadow { fill: #0A0A0A; opacity: .12; }
+    .off-hint {
+      margin-top: 22px; text-align: center;
+      font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
     }
-    .big-switch .track { width: 104px; height: 52px; border-width: 3px; }
-    .big-switch .knob { width: 34px; height: 34px; top: 6px; left: 6px; transition: transform .25s ease, background .2s; }
-    body:not(.off) .big-switch .knob,
-    .big-switch.flip .knob { transform: translateX(52px); background: var(--accent-ink); }
-    .big-switch.flip .track { background: var(--accent); border-color: var(--accent); }
-    .big-switch:hover .track { border-color: var(--accent); }
-    .big-switch:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+    .off-hint small { display: block; margin-top: 4px; font-weight: 400; letter-spacing: .02em; text-transform: none; font-size: 13px; color: var(--muted); }
 
     /* ---------- footer ---------- */
     footer {
@@ -217,14 +222,38 @@
       </div>
     </header>
 
-    <div class="links-wrap">
-      <ul class="links" id="links"></ul>
-      <div class="off-note">
-        <button type="button" class="big-switch" id="turn-on" tabindex="-1" aria-label="Ligar a página">
-          <span>Off</span>
-          <span class="track"><span class="knob"></span></span>
-        </button>
-      </div>
+    <ul class="links" id="links"></ul>
+
+    <div class="off-panel" id="off-panel">
+      <button type="button" class="rocker" id="turn-on" tabindex="-1" aria-label="Ligar a página">
+        <svg viewBox="0 0 310 350" aria-hidden="true">
+          <!-- sombra -->
+          <polygon class="shadow" points="40,330 230,330 280,295 90,295" />
+          <!-- caixa -->
+          <polygon class="top ink"  points="40,70 85,36 275,36 230,70" />
+          <polygon class="side ink" points="230,70 275,36 275,286 230,320" />
+          <rect    class="face ink" x="40" y="70" width="190" height="250" />
+          <text class="lbl" x="135" y="112" text-anchor="middle">ON</text>
+          <text class="lbl" x="135" y="310" text-anchor="middle">OFF</text>
+          <!-- poço do interruptor -->
+          <rect class="well ink" x="92" y="128" width="86" height="140" />
+
+          <!-- estado OFF: metade de cima saliente -->
+          <g class="is-off">
+            <rect    class="face ink" x="92" y="198" width="86" height="70" />
+            <polygon class="cap ink"  points="92,128 178,128 152,148 66,148" />
+            <polygon class="face ink" points="66,148 152,148 178,198 92,198" />
+            <polygon class="top ink"  points="152,148 178,128 178,198" />
+          </g>
+          <!-- estado ON: metade de baixo saliente -->
+          <g class="is-on">
+            <rect    class="face ink" x="92" y="128" width="86" height="70" />
+            <polygon class="side ink" points="178,198 178,268 152,288" />
+            <polygon class="face lit ink" points="92,198 178,198 152,288 66,288" />
+          </g>
+        </svg>
+      </button>
+      <p class="off-hint">Desligado.<small>Carrega no interruptor para ligar a CultureOn.</small></p>
     </div>
 
     <footer>
@@ -326,21 +355,18 @@
       document.body.classList.toggle("off", off);
       btn.setAttribute("aria-pressed", String(!off));
       state.textContent = off ? "Off" : "On";
-      document.getElementById("links").setAttribute("aria-hidden", String(off));
-      document.querySelectorAll("#links a").forEach(a => a.tabIndex = off ? -1 : 0);
       document.getElementById("turn-on").tabIndex = off ? 0 : -1;
       document.querySelector('meta[name="theme-color"]').content = off ? "#F5F5F2" : "#0A0A0A";
     }
     setMode(false); // começa sempre ligado — o OFF é o easter egg
     const big = document.getElementById("turn-on");
     big.addEventListener("click", () => {
+      if (big.classList.contains("flip")) return;
       big.classList.add("flip");
-      big.firstElementChild.textContent = "On";
       setTimeout(() => {
         setMode(false);
         big.classList.remove("flip");
-        big.firstElementChild.textContent = "Off";
-      }, 280);
+      }, 450);
     });
     btn.addEventListener("click", () => setMode(!document.body.classList.contains("off")));
   </script>

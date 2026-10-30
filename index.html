@@ -152,21 +152,36 @@
     .links li.featured a:hover .idx, .links li.featured a:hover .sub { opacity: 1; }
 
     /* ---------- easter egg: modo OFF ---------- */
-    .links-wrap { position: relative; }
+    .links-wrap { position: relative; overflow: hidden; }
     .links { transition: filter .35s ease, opacity .35s ease; }
     body.off .links { filter: blur(6px); opacity: .55; pointer-events: none; user-select: none; }
+    /* moldura nítida por cima do desfoque (laterais + linha de baixo) */
+    .links-wrap::after {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      border: 2px solid var(--line); border-top: 0;
+      opacity: 0; transition: opacity .35s ease;
+    }
+    body.off .links-wrap::after { opacity: 1; }
     .off-note {
       position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
       opacity: 0; pointer-events: none; transition: opacity .35s ease;
     }
     body.off .off-note { opacity: 1; pointer-events: auto; }
-    .off-note button {
-      background: var(--fg); color: var(--bg); border: 0; cursor: pointer;
-      padding: 14px 18px; font-family: "Inter", sans-serif; font-weight: 600;
-      font-size: 13px; letter-spacing: .1em; text-transform: uppercase;
+    /* cópia grande do switch */
+    .big-switch {
+      display: inline-flex; align-items: center; gap: 18px;
+      background: var(--bg); border: 2px solid var(--line); color: var(--fg);
+      padding: 18px 22px; cursor: pointer;
+      font-family: "Inter", sans-serif; font-weight: 600; font-size: 28px;
+      letter-spacing: .12em; text-transform: uppercase; line-height: 1;
     }
-    .off-note button .bolt { fill: currentColor; }
-    .off-note button:hover { background: var(--accent); color: var(--accent-ink); }
+    .big-switch .track { width: 104px; height: 52px; border-width: 3px; }
+    .big-switch .knob { width: 34px; height: 34px; top: 6px; left: 6px; transition: transform .25s ease, background .2s; }
+    body:not(.off) .big-switch .knob,
+    .big-switch.flip .knob { transform: translateX(52px); background: var(--accent-ink); }
+    .big-switch.flip .track { background: var(--accent); border-color: var(--accent); }
+    .big-switch:hover .track { border-color: var(--accent); }
+    .big-switch:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 
     /* ---------- footer ---------- */
     footer {
@@ -204,7 +219,12 @@
 
     <div class="links-wrap">
       <ul class="links" id="links"></ul>
-      <div class="off-note"><button type="button" id="turn-on" tabindex="-1">Desligado. Dá o switch<svg class="bolt" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 1 3 14h7.5L9 23 21 9.5h-7.6L13.5 1Z"/></svg></button></div>
+      <div class="off-note">
+        <button type="button" class="big-switch" id="turn-on" tabindex="-1" aria-label="Ligar a página">
+          <span>Off</span>
+          <span class="track"><span class="knob"></span></span>
+        </button>
+      </div>
     </div>
 
     <footer>
@@ -312,7 +332,16 @@
       document.querySelector('meta[name="theme-color"]').content = off ? "#F5F5F2" : "#0A0A0A";
     }
     setMode(false); // começa sempre ligado — o OFF é o easter egg
-    document.getElementById("turn-on").addEventListener("click", () => setMode(false));
+    const big = document.getElementById("turn-on");
+    big.addEventListener("click", () => {
+      big.classList.add("flip");
+      big.firstElementChild.textContent = "On";
+      setTimeout(() => {
+        setMode(false);
+        big.classList.remove("flip");
+        big.firstElementChild.textContent = "Off";
+      }, 280);
+    });
     btn.addEventListener("click", () => setMode(!document.body.classList.contains("off")));
   </script>
 </body>

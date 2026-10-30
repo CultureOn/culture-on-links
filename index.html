@@ -161,15 +161,9 @@
     }
     /* OFF: apagadas, com a linha de luz a escapar por baixo */
     body.off .meta span {
-      background: linear-gradient(180deg, #FCFCFA 0%, #F1F1EE 50%, #E2E2DE 50%, #ECECE8 100%);
+      background: transparent;
       border: 1px solid #0A0A0A; color: #0A0A0A;
-      box-shadow: -6px 6px 10px -7px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.9);
-    }
-    body.off .meta span::after {
-      content: ""; position: absolute; inset: -1px; border-radius: 999px;
-      border: 1.5px solid transparent; border-bottom-color: rgb(var(--glow));
-      filter: blur(.5px) drop-shadow(0 2px 3px rgba(var(--glow), .9));
-      pointer-events: none;
+      box-shadow: none;
     }
 
     /* ---------- links ---------- */
@@ -206,7 +200,7 @@
     body.off .off-panel {
       display: flex; flex-direction: column; align-items: center;
       border-bottom: var(--bw) solid var(--line);
-      padding: 30px 20px 26px;
+      padding: 14px 20px 16px; justify-content: center; box-sizing: border-box;
       animation: fade-in .35s ease;
     }
     @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
@@ -215,13 +209,13 @@
     body.off .off-panel.lit { background: #0A0A0A; color: #F5F5F2; }
     .rocker {
       --glow: 217, 255, 71;           /* #D9FF47 em RGB */
-      background: none; border: 0; padding: 24px 40px; cursor: pointer;
+      background: none; border: 0; padding: 6px 30px; cursor: pointer;
       display: block; -webkit-tap-highlight-color: transparent;
     }
     .rocker:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
     .pill {
       position: relative; display: block;
-      width: 104px; height: 268px; border-radius: 52px;
+      width: 64px; height: 164px; border-radius: 32px;
       border: 1px solid #0A0A0A;
       background: linear-gradient(180deg, #FCFCFA 0%, #F1F1EE 50%, #E2E2DE 50%, #ECECE8 100%);
       box-shadow:
@@ -231,7 +225,7 @@
     }
     /* linha de luz a escapar por baixo */
     .pill::after {
-      content: ""; position: absolute; inset: -1.5px; border-radius: 52px;
+      content: ""; position: absolute; inset: -1.5px; border-radius: 32px;
       border: 2px solid transparent; border-bottom-color: rgb(var(--glow));
       filter: blur(.8px) drop-shadow(0 4px 6px rgba(var(--glow), .9));
       opacity: .9; transition: opacity .4s ease; pointer-events: none;
@@ -265,7 +259,7 @@
     .rocker.final .pill::after { opacity: 0; }
 
     .off-hint {
-      margin-top: 22px; text-align: center;
+      margin-top: 14px; text-align: center;
       font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
     }
     .off-hint #off-msg { display: inline-block; font-family: "Syne", sans-serif; font-weight: 700; font-size: 18px; letter-spacing: .04em; }
@@ -417,6 +411,10 @@
     const CLICKS_TO_ON = 3;
     const NOPE = ["Ainda não.", "VAAAI!"];
     function setMode(off) {
+      if (off) { // o painel OFF fica com a mesma altura que os links
+        const h = document.getElementById("links").offsetHeight;
+        if (h) document.getElementById("off-panel").style.height = h + "px";
+      }
       document.body.classList.toggle("off", off);
       btn.setAttribute("aria-pressed", String(!off));
       state.textContent = off ? "Off" : "On";

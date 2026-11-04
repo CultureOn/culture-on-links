@@ -200,7 +200,7 @@
     body.off .off-panel {
       display: flex; flex-direction: column; align-items: center;
       border-bottom: var(--bw) solid var(--line);
-      padding: 14px 20px 16px; justify-content: center; box-sizing: border-box;
+      padding: 10px 20px 12px; justify-content: center; box-sizing: border-box;
       animation: fade-in .35s ease;
     }
     @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
@@ -215,7 +215,7 @@
     .rocker:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
     .pill {
       position: relative; display: block;
-      width: 64px; height: 164px; border-radius: 32px;
+      width: 50px; height: 128px; border-radius: 25px;
       border: 1px solid #0A0A0A;
       background: linear-gradient(180deg, #FCFCFA 0%, #F1F1EE 50%, #E2E2DE 50%, #ECECE8 100%);
       box-shadow:
@@ -225,7 +225,7 @@
     }
     /* linha de luz a escapar por baixo */
     .pill::after {
-      content: ""; position: absolute; inset: -1.5px; border-radius: 32px;
+      content: ""; position: absolute; inset: -1.5px; border-radius: 25px;
       border: 2px solid transparent; border-bottom-color: rgb(var(--glow));
       filter: blur(.8px) drop-shadow(0 4px 6px rgba(var(--glow), .9));
       opacity: .9; transition: opacity .4s ease; pointer-events: none;
@@ -259,7 +259,7 @@
     .rocker.final .pill::after { opacity: 0; }
 
     .off-hint {
-      margin-top: 14px; text-align: center;
+      margin-top: 10px; text-align: center;
       font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
     }
     .off-hint #off-msg { display: inline-block; font-family: "Syne", sans-serif; font-weight: 700; font-size: 18px; letter-spacing: .04em; }
@@ -327,10 +327,9 @@
      * ============================================================
      */
     const LINKS = [
-      { label: "Pedir orçamento",  sub: "Conta-nos o que precisas",          url: "https://wa.me/351966180200?text=" + encodeURIComponent("Olá CultureOn! Gostava de pedir um orçamento para..."), featured: true },
+      { label: "Conta-nos o que precisas", sub: "Pedir orçamento",          url: "https://wa.me/351966180200?text=" + encodeURIComponent("Olá CultureOn! Gostava de pedir um orçamento para..."), featured: true },
       { label: "Website",          sub: "cultureon.pt",                      url: "https://cultureon.pt" },
       { label: "Instagram",        sub: "@cultureon.pt",                     url: "https://www.instagram.com/cultureon.pt/" },
-      { label: "WhatsApp",         sub: "966 180 200",                       url: "https://wa.me/351966180200" },
       { label: "Portfólio",        sub: "Trabalho, não promessas",           url: "" },
       { label: "LinkedIn",         sub: "CultureOn",                         url: "" },
     ];

@@ -195,6 +195,9 @@
     .links li.featured a:hover .idx, .links li.featured a:hover .sub { opacity: 1; }
 
     /* ---------- easter egg: modo OFF ---------- */
+    /* topo desfocado: a marca está "desligada" */
+    .hero > * { transition: filter .5s ease, opacity .5s ease; }
+    body.off .hero > * { filter: blur(3.5px); opacity: .55; user-select: none; }
     .off-panel { display: none; }
     body.off .links { display: none; }
     body.off .off-panel {
